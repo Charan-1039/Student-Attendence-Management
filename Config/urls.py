@@ -23,6 +23,5 @@ urlpatterns = [
     path('login/',views.signin,name='login'),
     path('signup/',views.signup,name='signup'),
     path('Faculty/', include('FacultyApp.urls')),
-    path('Details/', include('DetailsApp.urls')),
     path('Students/', include('StudentApp.urls')),
 ]
