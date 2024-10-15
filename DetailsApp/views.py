@@ -38,3 +38,8 @@ def signup(request):
         return redirect("login")
         a ={'uname':n}
     return render(request,'signup.html',{'user':a})
+
+
+def log_out(request):
+    logout(request)
+    return redirect('login')
