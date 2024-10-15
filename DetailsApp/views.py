@@ -16,8 +16,7 @@ def signin(request):
         passwd = request.POST.get('Pwd')
         user = authenticate(request,username=uname,password=passwd)
         if user is not None:
-            login(request,user)
-            
+            login(request,user)            
             return redirect('home')
         else:
             b='Incorrect password or user does not exist'
