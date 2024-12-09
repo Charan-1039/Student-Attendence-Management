@@ -6,6 +6,53 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <style>
+    /* Container for the toggle */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+/* Hide default checkbox */
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The track */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 24px;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.3s;
+}
+
+/* The circular slider */
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+/* Toggled state */
+.toggle-switch input:checked + .slider {
+    background-color: #4caf50;
+}
+
+.toggle-switch input:checked + .slider::before {
+    transform: translateX(26px);
+}
    /* body {
             font-family: 'Arial', sans-serif;
             background-color: #e0e7ff;
@@ -257,11 +304,17 @@
                 <td>{{D.Taluk}}</td>
                 <td>{{D.Year}}</td>
                 <td>{{D.Month}}</td>
-                <td>{{D.Account}}</td>
+                <td>
+                    <label class="toggle-switch">
+                        <input type="checkbox" />
+                        <span class="slider"></span>
+                    </label></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <h2>Basic Toggle Switch</h2>
+
 </div>
  </body>
 </html>
