@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -60,7 +60,7 @@ def Data(request):
      else:
         P='Please Fill The Form'
    
-    return render()
+    return HttpResponse("Saved Sucessfull")
 
 def log_out(request):
     logout(request)
