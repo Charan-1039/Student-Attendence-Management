@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from DetailsApp.models import StudentDatabase
-
+from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.

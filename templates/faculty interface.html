@@ -5,6 +5,7 @@
   </title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <style>
     /* Container for the toggle */
 .toggle-switch {
@@ -144,39 +145,34 @@ input[type="radio"] {
  <body>
 
   <div class="container">
-    <h1>Faculty Attendance Interface</h1>
+    <h1>Welcome "{{user}}"</h1>
   <form action="{% url 'data' %}" method="POST">
     {% csrf_token %}
-    <div class="dropdown" id="Class">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Class
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
+    <div class="d-flex justify-content-evenly">
+        <select class="form-select p-3 m-3" name="TALUK" aria-label="Default select example">
+          {% for S in subject %}
+          <option  placeholder="subject">{{S.SubjectName}}</option>
+          {% endfor %}
+        </select>
+        <select class="form-select p-3 m-3" name="TALUK" aria-label="Default select example">
+            {% for C in class %}
+            <option default value="{{T.Taluk_Title}}">{{C.Class}}</option>
+            {% endfor %}
+          </select>
+          <select class="form-select p-3 m-3" name="TALUK" aria-label="Default select example">
+            {% for SE in semester %}
+            <option default value="{{T.Taluk_Title}}">{{SE.Semester}}</option>
+            {% endfor %}
+          </select>
+        
       </div>
-      <div class="dropdown" id="Subject">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Subject
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-      <div class="dropdown" id="Sem">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Sem
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
+    <div class="dwn-list" style="display: flex;gap: 15px;">
+        
+          
+          
+          
+    </div>
+    
     <div class="attendance-container">
         <h2>Student List</h2>
         
