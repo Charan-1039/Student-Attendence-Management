@@ -17,9 +17,7 @@ class SubjectAdmin(admin.ModelAdmin):
 class SemAdmin(admin.ModelAdmin):
     list_display = ('Semester',)  # Fields to display in the list view
    
-class SemAdmin(admin.ModelAdmin):
-    list_display = ('NAME',)  # Fields to display in the list view
-   
+
 
 admin.site.register(Department,DepartmentAdmin)
 admin.site.register(Subject,SubjectAdmin)

@@ -60,7 +60,7 @@ def Data(request):
      else:
         P='Please Fill The Form'
    
-    return HttpResponse("Saved Sucessfull")
+     return HttpResponse("Saved Sucessfull")
 
 def log_out(request):
     logout(request)
