@@ -2,6 +2,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from DetailsApp.models import StudentDatabase
+
+
 
 # Create your views here.
 
@@ -17,7 +20,7 @@ def signin(request):
         user = authenticate(request,username=uname,password=passwd)
         if user is not None:
             login(request,user)            
-            return redirect('home')
+            return redirect('Home')
         else:
             b='Incorrect password or user does not exist'
     return render(request,'login.html',{'b':b})
@@ -41,6 +44,23 @@ def signup(request):
         a ={'uname':n}
     return render(request,'signup.html',{'user':a})
 
+
+def Data(request):
+     if request.method =='POST':
+        clas      =   request.POST.get('TITLE')
+        Sub       =   request.POST.get('TALUK')
+        Sem       =   request.POST.get('MONTH')
+        att       =   request.POST.get('MONTH')
+        
+        name        =   request.POST.get('YEAR')
+        usn         =   request.POST.get('ACC')
+        save        =   StudentDatabase(NAME=name ,USN=usn ,CLASS=clas,SUB=Sub,SEM=Sem,ATT=att)
+        save.save()
+        D='Data Saved Scuessfully'
+     else:
+        P='Please Fill The Form'
+   
+    return render()
 
 def log_out(request):
     logout(request)
