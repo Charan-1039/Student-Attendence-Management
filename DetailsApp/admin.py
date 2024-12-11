@@ -18,13 +18,17 @@ class SemAdmin(admin.ModelAdmin):
     list_display = ('Semester',)  # Fields to display in the list view
    
 class ClassAdmin(admin.ModelAdmin):
-    list_display = ('Class',)  # Fields to display in the list view
+    list_display = ('Class',)  # Fields to display in the list view\
+    
+class StudentDataBaseAdmin(admin.ModelAdmin):
+    list_display = ('NAME','USN','SUB','CLASS','created_at','ATT')
+    list_filter = ('ATT','SUB')  # Fields to display in the list view    
 
 admin.site.register(Department,DepartmentAdmin)
 admin.site.register(Subject,SubjectAdmin)
 
 admin.site.register(Semester,SemAdmin)
 
-admin.site.register(StudentDatabase)
+admin.site.register(StudentDatabase,StudentDataBaseAdmin)
 admin.site.register(Class,ClassAdmin)
 admin.site.register(Date_Time)

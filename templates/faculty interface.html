@@ -143,7 +143,7 @@ input[type="radio"] {
   </style>
  </head>
  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Navbar</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -173,8 +173,8 @@ input[type="radio"] {
             </ul>
           </div>
         </div>
-      </nav>
-
+      </nav> -->
+      {% include "nav.html" %}
   <div class="container">
     <h1>Welcome "{{user}}"</h1>
   <form action="{% url 'data' %}" method="POST">
@@ -185,27 +185,21 @@ input[type="radio"] {
           <option  placeholder="subject">{{S.SubjectName}}</option>
           {% endfor %}
         </select>
-        <select class="form-select p-3 m-3" name="clas" aria-label="Default select example">
-            {% for C in clas %}
-            <option default value="{{T.Taluk_Title}}">{{C.Class}}</option>
-            {% endfor %}
-          </select>
-          <select class="form-select p-3 m-3" name="sem" aria-label="Default select example">
-            {% for SE in semester %}
-            <option default value="{{T.Taluk_Title}}">{{SE.Semester}}</option>
-            {% endfor %}
-          </select>
-          <!-- <select class="form-select p-3 m-3" name="TALUK" aria-label="Default select example">
-            <time datetime="YYYY-MM-DDThh:mm:ssTZD">
-          </select> -->
+        <select class="form-select p-3 m-3" name="CLASS" aria-label="Default select example">
+          {% for C in clas %}
+          <option placeholder="Class">{{C.Class}}</option>
+          {% endfor %}
+        </select>
+        <select class="form-select p-3 m-3" name="sem" aria-label="Default select example">
+          {% for SE in semester %}
+          <option placeholder="Sem">{{SE.Semester}}</option>
+          {% endfor %}
+        </select>
+         
           
         
       </div>
-      <div class="row g-1" style="padding-left: 15px;">
-        <div class="col-2">
-          <input type="datetime-local" class="form-control" placeholder="datetime-local" default="datetime-local" id="datetime" aria-label="datetime">
-        </div>
-      </div>
+      
     <div class="dwn-list" style="display: flex;gap: 15px;">
         
           
@@ -229,7 +223,7 @@ input[type="radio"] {
                 <td name="usn" >{{D.USN}}</td>
                 <td>
                     <label class="toggle-switch">
-                        <input type="checkbox" name="att" />
+                        <input type="checkbox" id="present_{{ D.id }}" name="present_{{ D.id }}" />
                         <span class="slider"></span>
                     </label>
                 </td>

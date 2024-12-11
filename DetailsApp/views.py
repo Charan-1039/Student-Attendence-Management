@@ -2,8 +2,9 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from DetailsApp.models import StudentDatabase
+from DetailsApp.models import StudentDatabase,Class,Subject,Semester
 from django.contrib.auth import authenticate, login, logout
+from StudentApp.models import Students
 
 
 # Create your views here.
@@ -45,37 +46,49 @@ def signup(request):
     return render(request,'signup.html',{'user':a})
 
 
-def Data(request):
-     if request.method =='POST':
-        clas      =   request.POST.get('TITLE')
-        Sub       =   request.POST.get('TALUK')
-        Sem       =   request.POST.get('MONTH')
-        att       =   request.POST.get('MONTH')
-        
-        name        =   request.POST.get('YEAR')
-        usn         =   request.POST.get('ACC')
-        save        =   StudentDatabase(NAME=name ,USN=usn ,CLASS=clas,SUB=Sub,SEM=Sem,ATT=att)
-        save.save()
-        D='Data Saved Scuessfully'
-     else:
-        P='Please Fill The Form'
+# def Data(request):
+#      if request.method =='POST':
+#         names = request.POST.getlist('SName')
+#         clas = request.POST.get('clas')
+#         sub = request.POST.get('sub')
+#         sem = request.POST.get('sem')
+#         att = request.POST.getlist('att')
+#         usn = request.POST.getlist('usn')
+#         data=StudentDatabase(NAME=names,SUB=sub,CLASS=clas,SEM=sem,ATT=att,USN=usn)
+#         data.save()
+#         D='Data Saved Scuessfully'
+#      else:
+#         P='Please Fill The Form'
    
-     return HttpResponse("Saved Sucessfull")
+#      return HttpResponse("Saved Sucessfull")
 
 def Save_Data(request):
+    sub = request.POST.get('sub')
+    
+    
     if request.method == 'POST':
-         names = request.POST.get('SName')
-         clas = request.POST.get('clas')
-         sub = request.POST.get('sub')
          sem = request.POST.get('sem')
-         att = request.POST.get('att')
-         usn = request.POST.get('usn')
-         data=StudentDatabase(NAME=names,SUB=sub,CLASS=clas,SEM=sem,ATT=att,USN=usn)
-         data.save()
-         m='Data save sucessfully'
+         cls = request.POST.get('CLASS')
+         students = Students.objects.all()
+         
+        #  clas = request.POST.get('cls')
+         for student in students:
+            present = request.POST.get(f'present_{student.id}') == 'on'
+            usn = student.USN
+            # clas = student.Class
+            StudentDatabase.objects.create(NAME=student,USN=usn,ATT=present,SUB=sub,CLASS=cls,SEM=sem)
+         return redirect('Home') 
+        #  names = request.POST.getlist('SName')
+        #  clas = request.POST.get('clas')
+        #  sub = request.POST.get('sub')
+        #  sem = request.POST.get('sem')
+        #  att = request.POST.getlist('att')
+        #  usn = request.POST.getlist('usn')
+        #  data=StudentDatabase(NAME=names,SUB=sub,CLASS=clas,SEM=sem,ATT=att,USN=usn)
+        #  data.save()
+        #  m='Data save sucessfully'
     else:
-        a= 'please fill the form'
-        
+        students = Students.objects.all()
     return render()
 
 def log_out(request):
@@ -83,3 +96,48 @@ def log_out(request):
     return redirect('login')
 
 
+def StudentReport(request):
+    Student = Students.objects.all()
+    subject = Subject.objects.all()
+    semester = Semester.objects.all()
+    clas = Class.objects.all()
+    
+    context = {'Student':Student,'subject':subject,'semester':semester,'clas':clas}
+    return render(request,'StudentData.html',context)
+
+def Search(request):
+    Student = Students.objects.all()
+    subject = Subject.objects.all()
+    semester = Semester.objects.all()
+    clas = Class.objects.all()
+    
+     
+    sub = request.GET['sub']
+    cls = request.GET['CLASS']
+    sem = request.GET['sem']
+    # sub = request.GET('sub')
+    # cls = request.GET.get('CLASS')
+    # sem = request.GET.get('sem')
+    data = StudentDatabase.objects.filter(SUB__icontains=sub,CLASS__icontains=cls,SEM__icontains=sem)
+    context = {'data':data,'Student':Student,'subject':subject,'semester':semester,'clas':clas}
+    return render(request,'StudentData.html',context)
+
+def AddStudent(request):
+    subject = Subject.objects.all()
+    semester = Semester.objects.all()
+    clas = Class.objects.all()
+    b=''
+    if request.method == 'POST':
+        uname = request.POST.get('name')
+        usn = request.POST.get('usn')
+        sem = request.POST.get('sem')
+        dep = request.POST.get('dep')
+        clas = request.POST.get('CLASS')
+        data = Students.objects.create(StudentName=uname,USN=usn,Sem=sem,Department=dep,Class=clas)
+        data.save()
+    else:
+        b='Please fill the blank place'
+        
+    context = {'subject':subject,'semester':semester,'clas':clas,'msg':b}
+    
+    return render(request,"AddStudent.html",context)

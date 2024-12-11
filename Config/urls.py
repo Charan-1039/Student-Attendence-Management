@@ -25,5 +25,8 @@ urlpatterns = [
     path('signout/',views.log_out,name='signout'),
     path('Faculty/', include('FacultyApp.urls')),
     path('Students/', include('StudentApp.urls')),
-    path('data/',views.Data,name='data'),
+    path('data/',views.Save_Data,name='data'),
+    path('StudentReport/',views.StudentReport,name='SR'),
+    path('search/',views.Search,name='srch'),
+    path('AddStudent/',views.AddStudent,name='Add'),
 ]
