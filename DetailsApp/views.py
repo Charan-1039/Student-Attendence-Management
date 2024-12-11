@@ -62,6 +62,22 @@ def Data(request):
    
      return HttpResponse("Saved Sucessfull")
 
+def Save_Data(request):
+    if request.method == 'POST':
+         names = request.POST.get('SName')
+         clas = request.POST.get('clas')
+         sub = request.POST.get('sub')
+         sem = request.POST.get('sem')
+         att = request.POST.get('att')
+         usn = request.POST.get('usn')
+         data=StudentDatabase(NAME=names,SUB=sub,CLASS=clas,SEM=sem,ATT=att,USN=usn)
+         data.save()
+         m='Data save sucessfully'
+    else:
+        a= 'please fill the form'
+        
+    return render()
+
 def log_out(request):
     logout(request)
     return redirect('login')

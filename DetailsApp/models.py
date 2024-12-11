@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Department(models.Model):
@@ -22,17 +23,21 @@ def __str__(self) :
 class Semester(models.Model):
   Semester= models.CharField(max_length=255)
 
+class Date_Time(models.Model):
+  created_at = models.DateTimeField(default=timezone.now)
+
 def __str__(self) :
         return self.Semester
 
 
 class StudentDatabase(models.Model):
-     NAME=models.CharField(max_length=255)
-     CLASS=models.CharField(max_length=255)
-     SUB=models.CharField(max_length=255)
-     SEM=models.CharField(max_length=255)
-     USN=models.CharField(max_length=255)
-     ATT=models.CharField(max_length=255)
+     NAME=models.CharField(max_length=255,null=True )
+     CLASS=models.CharField(max_length=255,null=True)
+     SUB=models.CharField(max_length=255,null=True)
+     SEM=models.CharField(max_length=255,null=True)
+     USN=models.CharField(max_length=255,null=True)
+     ATT=models.CharField(max_length=255,null=True)
+     
 
 
      def __str__(self) :

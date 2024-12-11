@@ -1,5 +1,5 @@
 from django.contrib import admin
-from DetailsApp.models import Department,Subject,Semester,StudentDatabase
+from DetailsApp.models import Department,Subject,Semester,StudentDatabase,Class,Date_Time
 
 # Register your models here.
 
@@ -17,7 +17,8 @@ class SubjectAdmin(admin.ModelAdmin):
 class SemAdmin(admin.ModelAdmin):
     list_display = ('Semester',)  # Fields to display in the list view
    
-
+class ClassAdmin(admin.ModelAdmin):
+    list_display = ('Class',)  # Fields to display in the list view
 
 admin.site.register(Department,DepartmentAdmin)
 admin.site.register(Subject,SubjectAdmin)
@@ -25,3 +26,5 @@ admin.site.register(Subject,SubjectAdmin)
 admin.site.register(Semester,SemAdmin)
 
 admin.site.register(StudentDatabase)
+admin.site.register(Class,ClassAdmin)
+admin.site.register(Date_Time)
