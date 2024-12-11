@@ -95,7 +95,7 @@ def log_out(request):
     logout(request)
     return redirect('login')
 
-
+@login_required(login_url='login')
 def StudentReport(request):
     Student = Students.objects.all()
     subject = Subject.objects.all()

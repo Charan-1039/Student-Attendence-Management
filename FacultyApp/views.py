@@ -4,6 +4,7 @@ from StudentApp.models import Students
 from DetailsApp.models import Class,Subject,Semester,Date_Time
 
 # Create your views here.
+
 def FacultyInterface(request):
 
     Student = Students.objects.all()
