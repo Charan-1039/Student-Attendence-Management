@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from DetailsApp.models import StudentDatabase,Class,Subject,Semester
+from DetailsApp.models import StudentDatabase,Class,Subject,Semester,Department
 from django.contrib.auth import authenticate, login, logout
 from StudentApp.models import Students
 
@@ -69,7 +69,7 @@ def Save_Data(request):
     if request.method == 'POST':
          sem = request.POST.get('sem')
          cls = request.POST.get('CLASS')
-         students = Students.objects.all()
+         students = Students.objects.filter(Class__Class__icontains=cls,Sem__Semester__icontains=sem)
          
         #  clas = request.POST.get('cls')
          for student in students:
@@ -115,10 +115,12 @@ def Search(request):
     sub = request.GET['sub']
     cls = request.GET['CLASS']
     sem = request.GET['sem']
+    name = request.GET['name']
+    usn = request.GET['usn']
     # sub = request.GET('sub')
     # cls = request.GET.get('CLASS')
     # sem = request.GET.get('sem')
-    data = StudentDatabase.objects.filter(SUB__icontains=sub,CLASS__icontains=cls,SEM__icontains=sem)
+    data = StudentDatabase.objects.filter(SUB__icontains=sub,CLASS__icontains=cls,SEM__icontains=sem,NAME__icontains=name,USN__icontains=usn)
     context = {'data':data,'Student':Student,'subject':subject,'semester':semester,'clas':clas}
     return render(request,'StudentData.html',context)
 
@@ -126,6 +128,7 @@ def AddStudent(request):
     subject = Subject.objects.all()
     semester = Semester.objects.all()
     clas = Class.objects.all()
+    dep= Department.objects.all()
     b=''
     if request.method == 'POST':
         uname = request.POST.get('name')
@@ -138,6 +141,57 @@ def AddStudent(request):
     else:
         b='Please fill the blank place'
         
-    context = {'subject':subject,'semester':semester,'clas':clas,'msg':b}
+    context = {'subject':subject,'semester':semester,'clas':clas,'dep':dep,'msg':b}
     
     return render(request,"AddStudent.html",context)
+
+def choicepage(request):
+    semester = Semester.objects.all()
+    clas = Class.objects.all()
+    context = {'semester':semester,'clas':clas}
+    return render(request,'choice.html',context)
+
+
+def choice(request):
+    # Student = Students.objects.all()
+    subject = Subject.objects.all()
+    semester = Semester.objects.all()
+    clas = Class.objects.all()
+    cls = request.GET.get('CLASS')
+    sem = request.GET.get('sem')
+    data = Students.objects.filter(Class__Class__icontains=cls,Sem__Semester__icontains=sem)
+     
+   
+    context = {'data':data,'clas':clas,'semester':semester,'subject':subject,'cls':cls,'sem':sem}
+    return render(request,'attendance.html',context)
+
+def StudentList(request):
+    students = Students.objects.all()
+    subject = Subject.objects.all()
+    semester = Semester.objects.all()
+    Dep = Department.objects.all()
+    clas = Class.objects.all()
+    # if request.method == 'GET':
+    #     cls = request.GET.get('CLASS')
+    #     sem = request.GET.get('sem')
+    #     name = request.GET.get('name')
+    #     usn = request.GET.get('usn')
+    #     data = Students.objects.filter(StudentName__icontains=name,USN__icontains=usn,Class__Class__icontains=cls,Sem__Semester__icontains=sem)
+    #     return redirect('StudentList',{'data':data})
+    # else:
+    #     data =  students = Students.objects.all()
+    context = {'subject':subject,'semester':semester,'clas':clas,'students':students,'Dep':Dep}
+    return render(request,'StudentList.html',context)
+
+def SearchList(request):
+    students = Students.objects.all()
+    subject = Subject.objects.all()
+    semester = Semester.objects.all()
+    clas = Class.objects.all()
+    cls = request.GET.get('CLASS')
+    sem = request.GET.get('sem')
+    name = request.GET.get('name')
+    dep = request.GET.get('dep')
+    data = Students.objects.filter(StudentName__icontains=name,Class__Class__icontains=cls,Sem__Semester__icontains=sem,Department__BranchName__icontains=dep)
+    context = {'data':data,'subject':subject,'semester':semester,'clas':clas,'students':students}
+    return render(request,'Sortedlist.html',context)

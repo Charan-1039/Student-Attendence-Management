@@ -79,6 +79,7 @@
         </style>
 </head>
 <body>
+    
     <div class="login-container">
         <h2>Add Student</h2>
         <h6>{{b}}</h6>
@@ -90,8 +91,8 @@
             <input type="text" placeholder="USN" name="usn" required>
             <div class="d-flex justify-content-evenly">
                 <select class="form-select p-3 m-3" name="sub" aria-label="Default select example">
-                  {% for S in subject %}
-                  <option  placeholder="subject">{{S.SubjectName}}</option>
+                  {% for D in dep %}
+                  <option  placeholder="subject">{{D.BranchName}}</option>
                   {% endfor %}
                 </select>
                 <select class="form-select p-3 m-3" name="CLASS" aria-label="Default select example">
@@ -110,6 +111,7 @@
             <input type="text" placeholder="Class" name="clas" required> -->
             <button type="submit">ADD</button>
         </form>
+        {% include "nav.html" %}
 
        
     </div>

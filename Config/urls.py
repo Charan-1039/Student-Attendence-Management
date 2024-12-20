@@ -29,4 +29,8 @@ urlpatterns = [
     path('StudentReport/',views.StudentReport,name='SR'),
     path('search/',views.Search,name='srch'),
     path('AddStudent/',views.AddStudent,name='Add'),
+    path('choice/',views.choice,name='choice'),
+    path('choicepage/',views.choicepage,name='choicepage'),
+    path('StudentList/',views.StudentList,name='StudentList'),
+    path('SearchList/',views.SearchList,name='SearchList')
 ]
